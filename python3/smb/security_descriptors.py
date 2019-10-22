@@ -229,6 +229,9 @@ class ACE(object):
         only, meaning that it doesn't apply to the object itself."""
         return bool(self.flags & ACE_FLAG_INHERIT_ONLY)
 
+    def hasFlag(self, flag):
+        return bool(self.flags & flag)
+
     @classmethod
     def from_bytes(cls, data):
         header_size = struct.calcsize(cls.HEADER_FORMAT)
@@ -338,6 +341,9 @@ class SecurityDescriptor(object):
         #: Instance of :class:`ACL` representing the system access control
         #: list, which specifies audit logging of an object.
         self.sacl = sacl
+
+    def hasFlag(self, flag):
+        return bool(self.flags & flag)
 
     @classmethod
     def from_bytes(cls, data):
